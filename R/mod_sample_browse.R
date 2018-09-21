@@ -16,31 +16,28 @@
 
 # A minimalist example is mandatory
 
-#' @title   mod_loginUI and mod_login
-#' @description  A shiny Module for entering credentials and login into Airtable
+#' @title   mod_sample_browseUI and mod_sample_browse
+#' @description  A shiny Module for browsing samples
 #'
 #' @param id shiny id
 #'
 #' @export
 #' @examples
-#'   mod_loginUI("login_body"))
-#'   callModule(mod_login,"login_body")
+#'   mod_loginUI("sample_browse_body"))
+#'   callModule(sample_browse_login,"sample_browse_body")
 
-mod_loginUI <- function(id, label = "Log In") {
+mod_sample_browseUI <- function(id, label = "Sample Browse") {
   ns <- NS(id)
 
   tagList(
     box(
-      textInput(ns("user"), "enter user name"),
-      passwordInput(ns("password"),"enter password",""),
-
-
-      actionButton(ns("validate"), "validate credentials"),
+      selectizeInput(ns("sample_type"),"Sample Type",choices=c("sample type 1","sample type 2"))
+    ),
       hr(),
       box(textOutput(outputId = ns("logmessage")))
 
     )
-  )
+
 
 }
 
@@ -52,29 +49,12 @@ mod_loginUI <- function(id, label = "Log In") {
 #' @param session internal
 #' @export
 #' @rdname mod_login
-mod_login <- function(input, output, session) {
-
-  observeEvent(input$validate,{
-
-
-    output$logmessage <- renderText(
-      tryCatch(
-        {
-          #login <- CoreAPIV2::authBasic(account)
-          #lo<-CoreAPIV2::logOut(login$coreApi)
-
-        paste("Credentials Validated user ",input$user,"-", input$password)
-        }
-        ,
-        error =function(cond){
-          return("Credentials not accepted")
-        }
-
-      )
-    )
+mod_sample_browse <- function(input, output, session) {
 
 
 
-  })
+
+
+
 
 }

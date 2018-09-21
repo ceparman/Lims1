@@ -2,33 +2,17 @@
 % Please edit documentation in R/mod_login.R
 \name{mod_loginUI}
 \alias{mod_loginUI}
-\title{mod_csv_fileInput and mod_csv_file}
+\title{mod_loginUI and mod_login}
 \usage{
 mod_loginUI(id, label = "Log In")
 }
 \arguments{
 \item{id}{shiny id}
-
-\item{label}{fileInput label}
 }
 \description{
-A shiny Module that imports csv file
+A shiny Module for entering credentials and login into Airtable
 }
 \examples{
-library(shiny)
-library(DT)
-if (interactive()){
-ui <- fluidPage(
-  mod_csv_fileInput("fichier"),
-DTOutput("tableau")
-)
-
-server <- function(input, output, session) {
-  data <- callModule(mod_csv_file,"fichier")
-  output$tableau <- renderDT({data()})
-}
-
-shinyApp(ui, server)
-}
-
+  mod_loginUI("login_body"))
+  callModule(mod_login,"login_body")
 }
